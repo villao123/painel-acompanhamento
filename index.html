@@ -363,256 +363,51 @@
 </div>
 
 <script>
-const DATA = {
-  ultimaAtualizacao: "20/08/2026 08:10",
-  projetos: [
-    {
-      nome: "Projeto UP São Paulo",
-      codigo: "6236681",
-      gp: "Renata Candido Marques",
-      head: "Operações",
-      status: "Em andamento",
-      tipoDespesa: ["CAPEX"],
-      requisitos: ["Infraestrutura e Facilities", "T.I Infraestrutura", "Qualidade", "Regulatório"],
-      totais: { orcadoBC: 44217396, changeRequest: 90000, totalOrcado: 44307396, totalPrevisto: 43018755, totalRealizado: 1254846 },
-      mensal: [
-        {mes:"jan/26",previsto:3200000,realizado:420000},{mes:"fev/26",previsto:3800000,realizado:310000},
-        {mes:"mar/26",previsto:4100000,realizado:180000},{mes:"abr/26",previsto:4500000,realizado:155000},
-        {mes:"mai/26",previsto:4200000,realizado:98000},{mes:"jun/26",previsto:4000000,realizado:91846},
-        {mes:"jul/26",previsto:3800000,realizado:0},{mes:"ago/26",previsto:3500000,realizado:0},
-        {mes:"set/26",previsto:3200000,realizado:0},{mes:"out/26",previsto:2800000,realizado:0},
-        {mes:"nov/26",previsto:2600000,realizado:0},{mes:"dez/26",previsto:2400000,realizado:0},
-        {mes:"jan/27",previsto:1800000,realizado:0},{mes:"fev/27",previsto:1200000,realizado:0},
-        {mes:"mar/27",previsto:800000,realizado:0},{mes:"abr/27",previsto:400000,realizado:0},
-        {mes:"mai/27",previsto:200000,realizado:0},{mes:"jun/27",previsto:100000,realizado:0}
-      ],
-      porRequisito: [
-        {requisito:"Infraestrutura e Facilities",realizado:980000},
-        {requisito:"T.I Infraestrutura",realizado:150000},
-        {requisito:"Qualidade",realizado:85000},
-        {requisito:"Regulatório",realizado:39846}
-      ]
-    },
-    {
-      nome: "Projeto UP Feira de Santana",
-      codigo: "24E022",
-      gp: "Adriano Braga",
-      head: "Operações",
-      status: "Em andamento",
-      tipoDespesa: ["CAPEX","OPEX"],
-      requisitos: ["Infraestrutura e Facilities","Gestão de Equipamentos","T.I Infraestrutura","Logística"],
-      totais: { orcadoBC: 17211844, changeRequest: 500000, totalOrcado: 17711844, totalPrevisto: 16800000, totalRealizado: 13893168 },
-      mensal: [
-        {mes:"set/25",previsto:800000,realizado:750000},{mes:"out/25",previsto:1200000,realizado:1150000},
-        {mes:"nov/25",previsto:1800000,realizado:1700000},{mes:"dez/25",previsto:2200000,realizado:2100000},
-        {mes:"jan/26",previsto:2600000,realizado:2500000},{mes:"fev/26",previsto:2400000,realizado:2350000},
-        {mes:"mar/26",previsto:2000000,realizado:1950000},{mes:"abr/26",previsto:1500000,realizado:1393168},
-        {mes:"mai/26",previsto:1000000,realizado:0},{mes:"jun/26",previsto:800000,realizado:0},
-        {mes:"jul/26",previsto:500000,realizado:0}
-      ],
-      porRequisito: [
-        {requisito:"Infraestrutura e Facilities",realizado:8500000},
-        {requisito:"Gestão de Equipamentos",realizado:3200000},
-        {requisito:"T.I Infraestrutura",realizado:1500000},
-        {requisito:"Logística",realizado:693168}
-      ]
-    },
-    {
-      nome: "Projeto DB Next",
-      codigo: "6350986",
-      gp: "Marcel Petersen",
-      head: "Tecnologia",
-      status: "Em andamento",
-      tipoDespesa: ["CAPEX","OPEX"],
-      requisitos: ["T.I Desenvolvimento de Sistemas","T.I Infraestrutura","T.I Lis"],
-      totais: { orcadoBC: 4968000, changeRequest: 0, totalOrcado: 4968000, totalPrevisto: 3385438, totalRealizado: 1008427 },
-      mensal: [
-        {mes:"jan/26",previsto:350000,realizado:280000},{mes:"fev/26",previsto:380000,realizado:310000},
-        {mes:"mar/26",previsto:400000,realizado:250000},{mes:"abr/26",previsto:350000,realizado:168427},
-        {mes:"mai/26",previsto:320000,realizado:0},{mes:"jun/26",previsto:300000,realizado:0},
-        {mes:"jul/26",previsto:280000,realizado:0},{mes:"ago/26",previsto:250000,realizado:0},
-        {mes:"set/26",previsto:220000,realizado:0},{mes:"out/26",previsto:200000,realizado:0},
-        {mes:"nov/26",previsto:180000,realizado:0},{mes:"dez/26",previsto:155438,realizado:0}
-      ],
-      porRequisito: [
-        {requisito:"T.I Desenvolvimento de Sistemas",realizado:620000},
-        {requisito:"T.I Infraestrutura",realizado:280000},
-        {requisito:"T.I Lis",realizado:108427}
-      ]
-    },
-    {
-      nome: "Projeto DB Genômica",
-      codigo: "24E002",
-      gp: "Marcel Petersen",
-      head: "Tecnologia",
-      status: "Em andamento",
-      tipoDespesa: ["CAPEX"],
-      requisitos: ["Gestão de Equipamentos","T.I Desenvolvimento de Sistemas","Qualidade","Produção"],
-      totais: { orcadoBC: 85000000, changeRequest: 1200000, totalOrcado: 86200000, totalPrevisto: 82000000, totalRealizado: 68500000 },
-      mensal: [
-        {mes:"jun/25",previsto:3000000,realizado:2800000},{mes:"jul/25",previsto:4500000,realizado:4200000},
-        {mes:"ago/25",previsto:5200000,realizado:5000000},{mes:"set/25",previsto:5800000,realizado:5600000},
-        {mes:"out/25",previsto:6200000,realizado:6000000},{mes:"nov/25",previsto:6500000,realizado:6300000},
-        {mes:"dez/25",previsto:6800000,realizado:6600000},{mes:"jan/26",previsto:7200000,realizado:7000000},
-        {mes:"fev/26",previsto:7500000,realizado:7200000},{mes:"mar/26",previsto:7000000,realizado:6800000},
-        {mes:"abr/26",previsto:6500000,realizado:6200000},{mes:"mai/26",previsto:5800000,realizado:4800000},
-        {mes:"jun/26",previsto:4500000,realizado:0},{mes:"jul/26",previsto:3200000,realizado:0},
-        {mes:"ago/26",previsto:2000000,realizado:0},{mes:"set/26",previsto:1500000,realizado:0},
-        {mes:"out/26",previsto:800000,realizado:0}
-      ],
-      porRequisito: [
-        {requisito:"Gestão de Equipamentos",realizado:35000000},
-        {requisito:"T.I Desenvolvimento de Sistemas",realizado:18500000},
-        {requisito:"Qualidade",realizado:8500000},
-        {requisito:"Produção",realizado:6500000}
-      ]
-    },
-    {
-      nome: "Projeto Ampliação da UP GO",
-      codigo: "6142325",
-      gp: "Vanessa dos Santos",
-      head: "Operações",
-      status: "Em andamento",
-      tipoDespesa: ["CAPEX"],
-      requisitos: ["Infraestrutura e Facilities","Gestão de Equipamentos"],
-      totais: { orcadoBC: 5421680, changeRequest: 0, totalOrcado: 5421680, totalPrevisto: 1364284, totalRealizado: 3911372 },
-      mensal: [
-        {mes:"dez/25",previsto:200000,realizado:180000},{mes:"jan/26",previsto:450000,realizado:820000},
-        {mes:"fev/26",previsto:380000,realizado:950000},{mes:"mar/26",previsto:334284,realizado:1200000},
-        {mes:"abr/26",previsto:0,realizado:761372},{mes:"mai/26",previsto:0,realizado:0}
-      ],
-      porRequisito: [
-        {requisito:"Infraestrutura e Facilities",realizado:2800000},
-        {requisito:"Gestão de Equipamentos",realizado:1111372}
-      ]
-    },
-    {
-      nome: "Projeto Guia de Exames",
-      codigo: "25E001",
-      gp: "Guilherme Fabre",
-      head: "Comercial",
-      status: "Em andamento",
-      tipoDespesa: ["OPEX"],
-      requisitos: ["Marketing","T.I Desenvolvimento de Sistemas"],
-      totais: { orcadoBC: 785071, changeRequest: 0, totalOrcado: 785071, totalPrevisto: 421001, totalRealizado: 298942 },
-      mensal: [
-        {mes:"jan/26",previsto:80000,realizado:65000},{mes:"fev/26",previsto:75000,realizado:70000},
-        {mes:"mar/26",previsto:85000,realizado:78000},{mes:"abr/26",previsto:70000,realizado:52000},
-        {mes:"mai/26",previsto:55000,realizado:33942},{mes:"jun/26",previsto:56001,realizado:0}
-      ],
-      porRequisito: [
-        {requisito:"Marketing",realizado:195000},
-        {requisito:"T.I Desenvolvimento de Sistemas",realizado:103942}
-      ]
-    },
-    {
-      nome: "Projeto MyLims Maringá",
-      codigo: "6366675",
-      gp: "Brayan David da Silva Amaral",
-      head: "Tecnologia",
-      status: "Em andamento",
-      tipoDespesa: ["CAPEX"],
-      requisitos: ["T.I Lis","T.I Infraestrutura"],
-      totais: { orcadoBC: 152157, changeRequest: 0, totalOrcado: 152157, totalPrevisto: 48068, totalRealizado: 90159 },
-      mensal: [
-        {mes:"jan/26",previsto:20000,realizado:25000},{mes:"fev/26",previsto:15000,realizado:22000},
-        {mes:"mar/26",previsto:13068,realizado:18000},{mes:"abr/26",previsto:0,realizado:15159},
-        {mes:"mai/26",previsto:0,realizado:10000}
-      ],
-      porRequisito: [
-        {requisito:"T.I Lis",realizado:65000},
-        {requisito:"T.I Infraestrutura",realizado:25159}
-      ]
-    },
-    {
-      nome: "Projeto Migração de Método",
-      codigo: "6471570",
-      gp: "Vanessa dos Santos",
-      head: "Operações",
-      status: "Em andamento",
-      tipoDespesa: ["CAPEX","OPEX"],
-      requisitos: ["Produção","Qualidade","T.I Lis"],
-      totais: { orcadoBC: 2066660, changeRequest: 0, totalOrcado: 2066660, totalPrevisto: 1613025, totalRealizado: 9063 },
-      mensal: [
-        {mes:"jan/26",previsto:250000,realizado:5000},{mes:"fev/26",previsto:230000,realizado:2063},
-        {mes:"mar/26",previsto:220000,realizado:1000},{mes:"abr/26",previsto:200000,realizado:1000},
-        {mes:"mai/26",previsto:180000,realizado:0},{mes:"jun/26",previsto:160000,realizado:0},
-        {mes:"jul/26",previsto:140000,realizado:0},{mes:"ago/26",previsto:120000,realizado:0},
-        {mes:"set/26",previsto:113025,realizado:0}
-      ],
-      porRequisito: [
-        {requisito:"Produção",realizado:4500},
-        {requisito:"Qualidade",realizado:3063},
-        {requisito:"T.I Lis",realizado:1500}
-      ]
-    },
-    {
-      nome: "Projeto Multigateways Adquirentes",
-      codigo: "24T021",
-      gp: "Guilherme Fabre",
-      head: "Financeiro",
-      status: "Em andamento",
-      tipoDespesa: ["OPEX"],
-      requisitos: ["T.I Desenvolvimento de Sistemas","Controladoria"],
-      totais: { orcadoBC: 902180, changeRequest: 0, totalOrcado: 902180, totalPrevisto: 0, totalRealizado: 681515 },
-      mensal: [
-        {mes:"jul/25",previsto:0,realizado:80000},{mes:"ago/25",previsto:0,realizado:95000},
-        {mes:"set/25",previsto:0,realizado:110000},{mes:"out/25",previsto:0,realizado:105000},
-        {mes:"nov/25",previsto:0,realizado:98000},{mes:"dez/25",previsto:0,realizado:85000},
-        {mes:"jan/26",previsto:0,realizado:60000},{mes:"fev/26",previsto:0,realizado:48515}
-      ],
-      porRequisito: [
-        {requisito:"T.I Desenvolvimento de Sistemas",realizado:480000},
-        {requisito:"Controladoria",realizado:201515}
-      ]
-    },
-    {
-      nome: "Projeto Módulo Fiscal",
-      codigo: "23E065",
-      gp: "Renata Candido Marques",
-      head: "Financeiro",
-      status: "Em andamento",
-      tipoDespesa: ["CAPEX","OPEX"],
-      requisitos: ["Controladoria","T.I Desenvolvimento de Sistemas"],
-      totais: { orcadoBC: 1850000, changeRequest: 338000, totalOrcado: 2188000, totalPrevisto: 1900000, totalRealizado: 1650000 },
-      mensal: [
-        {mes:"out/24",previsto:120000,realizado:100000},{mes:"nov/24",previsto:150000,realizado:130000},
-        {mes:"dez/24",previsto:180000,realizado:160000},{mes:"jan/25",previsto:200000,realizado:185000},
-        {mes:"fev/25",previsto:210000,realizado:195000},{mes:"mar/25",previsto:220000,realizado:200000},
-        {mes:"abr/25",previsto:200000,realizado:190000},{mes:"mai/25",previsto:180000,realizado:170000},
-        {mes:"jun/25",previsto:160000,realizado:150000},{mes:"jul/25",previsto:140000,realizado:120000},
-        {mes:"ago/25",previsto:140000,realizado:50000}
-      ],
-      porRequisito: [
-        {requisito:"Controladoria",realizado:1100000},
-        {requisito:"T.I Desenvolvimento de Sistemas",realizado:550000}
-      ]
-    },
-    {
-      nome: "Projeto Jornada da Amostra",
-      codigo: "25E005",
-      gp: "Brayan David da Silva Amaral",
-      head: "Operações",
-      status: "Em andamento",
-      tipoDespesa: ["CAPEX"],
-      requisitos: ["Pré Analítico","Logística","T.I Desenvolvimento de Sistemas"],
-      totais: { orcadoBC: 3200000, changeRequest: 0, totalOrcado: 3200000, totalPrevisto: 2800000, totalRealizado: 420000 },
-      mensal: [
-        {mes:"jul/25",previsto:200000,realizado:50000},{mes:"ago/25",previsto:250000,realizado:80000},
-        {mes:"set/25",previsto:280000,realizado:90000},{mes:"out/25",previsto:300000,realizado:100000},
-        {mes:"nov/25",previsto:280000,realizado:60000},{mes:"dez/25",previsto:250000,realizado:40000},
-        {mes:"jan/26",previsto:220000,realizado:0},{mes:"fev/26",previsto:200000,realizado:0},
-        {mes:"mar/26",previsto:180000,realizado:0},{mes:"abr/26",previsto:160000,realizado:0},
-        {mes:"mai/26",previsto:140000,realizado:0},{mes:"jun/26",previsto:140000,realizado:0}
-      ],
-      porRequisito: [
-        {requisito:"Pré Analítico",realizado:200000},
-        {requisito:"Logística",realizado:140000},
-        {requisito:"T.I Desenvolvimento de Sistemas",realizado:80000}
-      ]
-    }
-  ]
-};
+<style>
+  .loading-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--bg-primary); display: flex; flex-direction: column;
+    align-items: center; justify-content: center; z-index: 9999;
+    transition: opacity 0.4s;
+  }
+  .loading-overlay.hide { opacity: 0; pointer-events: none; }
+  .loading-spinner {
+    width: 36px; height: 36px; border: 3px solid var(--border);
+    border-top-color: var(--accent-green); border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { margin-top: 14px; font-size: 13px; color: var(--text-muted); }
+  .loading-error { color: var(--accent-red); font-size: 13px; margin-top: 10px; display: none; }
+</style>
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Carregando dados do portfólio...</div>
+  <div class="loading-error" id="loadingError"></div>
+</div>
+
+<script>
+let DATA = { ultimaAtualizacao: '', projetos: [] };
+
+async function carregarDados() {
+  try {
+    const resp = await fetch('https://pmo-financeiro.vitormanu-dl05.workers.dev/painel-data');
+    if (!resp.ok) throw new Error('Erro ' + resp.status);
+    DATA = await resp.json();
+    document.getElementById('loadingOverlay').classList.add('hide');
+    setTimeout(function() { document.getElementById('loadingOverlay').style.display = 'none'; }, 400);
+    initPainel();
+  } catch (e) {
+    document.getElementById('loadingError').textContent = 'Erro ao carregar: ' + e.message + ' — Tente atualizar.';
+    document.getElementById('loadingError').style.display = 'block';
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', carregarDados);
+} else {
+  carregarDados();
+}
 </script>
 
 <script>
@@ -922,16 +717,16 @@ const DATA = {
     renderDiretoria(projetos, periodo);
   };
 
-  function init() {
+  // Expose initPainel globally
+  window.initPainel = function() {
     document.getElementById('syncLabel').textContent = 'Sync: ' + DATA.ultimaAtualizacao;
     document.getElementById('filterMeta').textContent = 'Última atualização ' + DATA.ultimaAtualizacao;
     populateFilters();
     applyFilters();
-  }
+  };
 
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init);
-  else init();
 })();
 </script>
+
 </body>
 </html>
