@@ -464,8 +464,46 @@
         {label:'Orçado no mês',data:previstos,type:'line',borderColor:'rgba(139,148,158,0.5)',borderDash:[6,4],borderWidth:2,pointRadius:0,pointHoverRadius:3,fill:false,tension:0.3,order:1}
       ]},
       options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
-        plugins:{legend:{display:false},tooltip:{backgroundColor:'#1a222d',titleColor:'#e6edf3',bodyColor:'#8b949e',borderColor:'#30363d',borderWidth:1,padding:10,cornerRadius:8,
-          callbacks:{label:function(c){return c.dataset.label+': R$ '+(c.raw/1000).toLocaleString('pt-BR',{maximumFractionDigits:0})+' mil';}}}},
+        plugins:{legend:{display:false},tooltip:{backgroundColor:'#131920',titleColor:'#e6edf3',bodyColor:'#8b949e',borderColor:'#263240',borderWidth:1,padding:14,cornerRadius:10,
+          titleFont:{size:13,weight:'700'},bodyFont:{size:11},bodySpacing:6,
+          callbacks:{
+            title:function(items){return items[0].label.replace('/',' / 20');},
+            label:function(c){
+              var val=c.raw||0;var label=c.dataset.label;
+              if(c.datasetIndex===0){
+                var prev=previstos[c.dataIndex]||0;
+                var pctPrev=prev>0?Math.round((val/prev)*100):0;
+                var lines=['  Realizado:  R$ '+(val/1000).toLocaleString('pt-BR',{maximumFractionDigits:0})+' mil'];
+                if(prev>0)lines.push('  Previsto:    R$ '+(prev/1000).toLocaleString('pt-BR',{maximumFractionDigits:0})+' mil');
+                if(prev>0){
+                  var diff=val-prev;var sinal=diff>=0?'+':'-';
+                  lines.push('  Execu\u00e7\u00e3o:   '+pctPrev+'% do previsto'+(diff!==0?' ('+sinal+'R$ '+(Math.abs(diff)/1000).toLocaleString('pt-BR',{maximumFractionDigits:0})+' mil)':''));
+                }
+                return lines;
+              }else{
+                return '  Or\u00e7ado:      R$ '+(val/1000).toLocaleString('pt-BR',{maximumFractionDigits:0})+' mil';
+              }
+            },
+            labelColor:function(c){
+              if(c.datasetIndex===0){
+                var val=c.raw||0;var prev=previstos[c.dataIndex]||0;
+                var cor=prev>0?(val>=prev?'#00e5a0':(val>=prev*0.7?'#f59e0b':'#f07070')):'#3b82f6';
+                return{borderColor:cor,backgroundColor:cor,borderRadius:3};
+              }
+              return{borderColor:'#8b949e',backgroundColor:'transparent',borderWidth:2};
+            },
+            afterBody:function(items){
+              var idx=items[0].dataIndex;var real=realizados[idx]||0;var prev=previstos[idx]||0;
+              if(prev>0&&real>0){
+                var ratio=real/prev;
+                if(ratio>=1)return['\n  \u2705 Dentro ou acima do previsto'];
+                if(ratio>=0.7)return['\n  \u26a0\ufe0f Levemente abaixo do previsto'];
+                return['\n  \ud83d\udea8 Significativamente abaixo'];
+              }
+              if(real===0&&prev>0)return['\n  \u23f3 Aguardando execu\u00e7\u00e3o'];
+              return[];
+            }
+          }}},
         scales:{x:{ticks:{color:'#5a6570',font:{size:9},maxRotation:45,autoSkip:true,maxTicksLimit:24},grid:{display:false}},
           y:{ticks:{color:'#5a6570',font:{size:9},callback:function(v){return(v/1000000).toFixed(1)+' Mi';}},grid:{color:'rgba(30,42,54,0.6)',drawBorder:false}}}
       },
