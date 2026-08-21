@@ -260,9 +260,6 @@
   <div class="filter-bar">
     <span class="filter-label">Filtrar por</span>
     <div class="filter-group">
-      <select class="filter-select" id="filterHead" onchange="applyFilters()"><option value="">Head/Diretoria · Todos</option></select>
-    </div>
-    <div class="filter-group">
       <select class="filter-select" id="filterTipo" onchange="applyFilters()"><option value="">Tipo despesa · Todos</option></select>
     </div>
     <div class="filter-group">
@@ -406,10 +403,20 @@
 
   function fmtK(val) { return (val / 1000).toLocaleString('pt-BR', {maximumFractionDigits:0}); }
 
+  function saveToURL(){
+    var params=new URLSearchParams();
+    var ids=['filterTipo','filterStatus','filterRequisito','filterGP','filterProjeto','periodoInicio','periodoFim'];
+    ids.forEach(function(id){var v=document.getElementById(id).value;if(v)params.set(id,v);});
+    var qs=params.toString();
+    history.replaceState(null,'',qs?'?'+qs:location.pathname);
+  }
+  function loadFromURL(){
+    var params=new URLSearchParams(location.search);
+    params.forEach(function(v,k){var el=document.getElementById(k);if(el)el.value=v;});
+  }
   function populateFilters() {
-    var s = {head:new Set(),tipo:new Set(),status:new Set(),requisito:new Set(),gp:new Set(),projeto:new Set()};
+    var s = {tipo:new Set(),status:new Set(),requisito:new Set(),gp:new Set(),projeto:new Set()};
     DATA.projetos.forEach(function(p) {
-      if(p.head) s.head.add(p.head);
       p.tipoDespesa.forEach(function(t){s.tipo.add(t);});
       if(p.status) s.status.add(p.status);
       p.requisitos.forEach(function(r){s.requisito.add(r);});
@@ -417,7 +424,7 @@
       s.projeto.add(p.nome);
     });
     function fill(id,vals){var sel=document.getElementById(id);Array.from(vals).sort().forEach(function(v){var o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o);});}
-    fill('filterHead',s.head);fill('filterTipo',s.tipo);fill('filterStatus',s.status);
+    fill('filterTipo',s.tipo);fill('filterStatus',s.status);
     fill('filterRequisito',s.requisito);fill('filterGP',s.gp);fill('filterProjeto',s.projeto);
     var allMonths=new Set();
     DATA.projetos.forEach(function(p){p.mensal.forEach(function(m){if(m.previsto>0||m.realizado>0)allMonths.add(m.mes);});});
@@ -425,14 +432,15 @@
     var selI=document.getElementById('periodoInicio'),selF=document.getElementById('periodoFim');
     sorted.forEach(function(m){var label=m.replace('/',' / 20');var o1=document.createElement('option');o1.value=m;o1.textContent=label;selI.appendChild(o1);var o2=document.createElement('option');o2.value=m;o2.textContent=label;selF.appendChild(o2);});
     if(sorted.length){selI.value=sorted[0];selF.value=sorted[sorted.length-1];}
+    loadFromURL();
   }
 
   function getFiltered(){
-    var fH=document.getElementById('filterHead').value,fT=document.getElementById('filterTipo').value,
+    var fT=document.getElementById('filterTipo').value,
         fS=document.getElementById('filterStatus').value,fR=document.getElementById('filterRequisito').value,
         fG=document.getElementById('filterGP').value,fP=document.getElementById('filterProjeto').value;
     return DATA.projetos.filter(function(p){
-      if(fH&&p.head!==fH)return false;if(fT&&!p.tipoDespesa.includes(fT))return false;
+      if(fT&&!p.tipoDespesa.includes(fT))return false;
       if(fS&&p.status!==fS)return false;if(fR&&!p.requisitos.includes(fR))return false;
       if(fG&&p.gp!==fG)return false;if(fP&&p.nome!==fP)return false;return true;
     });
@@ -499,7 +507,7 @@
     if(!sorted.length)c.innerHTML='<div style="text-align:center;color:var(--text-muted);font-size:12px;padding:16px;">Sem dados</div>';
   }
 
-  function applyFilters(){var projetos=getFiltered();var periodo=getPeriodo();renderCards(projetos,periodo);renderChart(projetos,periodo);renderRitmo(projetos,periodo);renderDiretoria(projetos);}
+  function applyFilters(){var projetos=getFiltered();var periodo=getPeriodo();renderCards(projetos,periodo);renderChart(projetos,periodo);renderRitmo(projetos,periodo);renderDiretoria(projetos);saveToURL();}
   window.applyFilters=applyFilters;
 
   fetch('https://pmo-financeiro.vitormanu-dl05.workers.dev/painel-data')
