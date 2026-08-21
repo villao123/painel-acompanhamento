@@ -181,17 +181,7 @@
   .legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--text-secondary); }
   .legend-bar { width: 12px; height: 8px; border-radius: 2px; }
   .legend-line { width: 18px; height: 0; border-top: 2px dashed; }
-  .insight-box {
-    display: flex; align-items: flex-start; gap: 8px;
-    background: rgba(0,229,160,0.04); border: 1px solid rgba(0,229,160,0.1);
-    border-radius: 8px; padding: 10px 14px; margin-top: 8px; flex-shrink: 0;
-  }
-  .insight-dot {
-    width: 7px; height: 7px; border-radius: 50%; background: var(--accent-green);
-    margin-top: 3px; flex-shrink: 0;
-  }
-  .insight-text { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
-  .insight-text strong { color: var(--text-primary); font-weight: 600; }
+
 
   /* Ritmo */
   .ritmo-item { margin-bottom: 16px; }
@@ -322,10 +312,7 @@
           <span>Orçado no mês (referência)</span>
         </div>
       </div>
-      <div class="insight-box">
-        <div class="insight-dot"></div>
-        <div class="insight-text" id="insightText">Carregando análise...</div>
-      </div>
+
     </div>
 
     <div class="panel">
@@ -484,9 +471,6 @@
       },
       plugins:hojeIdx>=0?[{id:'todayLine',afterDraw:function(chart){var meta=chart.getDatasetMeta(0);if(!meta.data[hojeIdx])return;var x=meta.data[hojeIdx].x,c2=chart.ctx,top=chart.chartArea.top,bottom=chart.chartArea.bottom;c2.save();c2.setLineDash([4,4]);c2.strokeStyle='rgba(139,148,158,0.4)';c2.lineWidth=1;c2.beginPath();c2.moveTo(x,top);c2.lineTo(x,bottom);c2.stroke();c2.restore();c2.save();c2.fillStyle='#8b949e';c2.font='9px Inter,sans-serif';c2.textAlign='center';c2.fillText('hoje \u00b7 ago/26',x,top-4);c2.restore();}}]:[]
     });
-    if(realizados.some(function(v){return v>0;})){var maxS=0,pk=0;for(var i=0;i<realizados.length-2;i++){var s=realizados[i]+realizados[i+1]+realizados[i+2];if(s>maxS){maxS=s;pk=i;}}
-      document.getElementById('insightText').innerHTML='<strong>Pico de desembolso entre '+allMonths[pk]+' e '+allMonths[Math.min(pk+2,allMonths.length-1)]+':</strong> per\u00edodo de maior atividade do portf\u00f3lio; a partir da\u00ed o ritmo mensal desacelera at\u00e9 o encerramento em '+allMonths[allMonths.length-1]+'.';
-    }else{document.getElementById('insightText').innerHTML='Nenhum desembolso registrado no per\u00edodo selecionado.';}
   }
 
   function renderRitmo(projetos,periodo){
